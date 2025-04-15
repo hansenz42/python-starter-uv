@@ -1,1 +1,1 @@
-import demo as demo
+from src import demo as demo

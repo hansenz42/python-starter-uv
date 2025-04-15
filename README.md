@@ -1,69 +1,53 @@
-# 一个轻量、实用的 Python 项目框架
+# 一个轻量、实用的 Python 项目框架（uv 版本）
 
 本项目是一个轻量实用的 Python 项目脚手架，集成了简单的日志，配置文件管理，处理了 python 脚本间的依赖关系，避免重复导入等问题。适用于各种 Python 项目（例如数据科学，web 服务器等）。
 
 项目配置完毕后，你只需要在 src 目录下写代码即可。
 
-该项目的文章在：[🐍 python项目结构的最佳实践 | 阿森的知识图谱](https://www.assen.top/2023/06/19/python-project-structure/)
-
-欢迎阅读
-
 # 功能
 
-- 依赖管理：使用 poetry 管理项目依赖
+- 依赖管理：使用 uv 管理项目依赖
 - 日志管理：统一化日志格式，支持正常日志和错误日志的分割，分别输出到 stdout 和 stderr
 - 配置文件管理：根据不同环境加载不同配置文件。
 - 测试管理：使用 pytest 管理测试用例
 
 # 使用方法
 
-## 1 安装 poetry 依赖管理器：
+## 1 安装 uv 依赖管理器：
 
 macOS, Linux, Windows(WSL)：
 ```bash
-curl -sSL https://install.python-poetry.org | python3 -
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-其他平台的 poetry 安装方式见：[Introduction | Documentation | Poetry - Python dependency management and packaging made easy](https://python-poetry.org/docs/#installing-with-the-official-installer)
+其他平台的 uv 安装方式见：[Installation | uv](https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_1)
 
 ## 2 clone 本项目到本地
 ```bash
-git clone git@github.com:hansenz42/python-project-starter.git
+git clone git@github.com:hansenz42/python-starter-uv.git
 ```
 
-## 3 （可选）修改 poetry 的配置
+## 3 （可选）修改 pyproject 的配置
 
 修改 `pyproject.toml`
 ```toml
-[tool.poetry]
-name = "PEOJECT NAME"
-# ...
-authors = ["YOUR NAME <YOUR-EMAIL@xxx.com>"]
-
-[tool.poetry.dependencies]
-python = "^3.11"   #替换为你想使用的 python 版本
+[project]
+name = "python-starter-uv"   # 修改项目名称
+version = "0.1.0"
+description = ""
+authors = [{ name = "Hansen", email = "xxxx@xxxx.com" }]    # 填写你的名字和邮箱
+requires-python = "~=3.12"    # 修改 python 版本 
+readme = "README.md"
+dependencies = ["pyyaml", "pytest"] 
 ```
 
 
 ## 4 切换到项目根目录下，安装依赖，修改项目基本信息
 ```bash
-poetry install
+uv sync
 ```
 
-## 5 如果你使用 IDEA 系列 IDE （PyCharm）
-
-IDE 打开项目后：
-
-将 src 文件夹配置为源代码根目录：
-- 右键 src 文件夹，选择 Mark Directory as -> Sources Root
-
-将 res 文件夹配置为资源文件根目录：
-- 右键 res 文件夹，选择 Mark Directory as -> Resources Root
-
-将 test 文件夹配置为测试代码根目录：
-- 右键 test 文件夹，选择 Mark Directory as -> Test Sources Root
-
-## 6 添加项目变量
+## 5 添加项目变量
 
 项目变量的配置在 `res` 目录下，默认提供了三个环境：
 - `config_dev.yml` 开发环境：在开发时使用
@@ -74,12 +58,12 @@ IDE 打开项目后：
 
 `config.yml` 文件是所有环境共用的配置，如果在特定环境中配置了相同名称的变量，则会覆盖 `config.yml` 中的配置。
 
-## 7 开始写代码！
+## 6 开始写代码！
 
 - 你自己的代码可以放在 `src` 目录下。
 - 测试用例可以统一放在 `test` 目录下。
 
-### 7.1 引入自己写的模块
+### 6.1 引入自己写的模块
 
 引入自己编写的模块时，使用 `src` 作为根目录起始的路径，如：
 ```python
@@ -88,7 +72,7 @@ IDE 打开项目后：
 from server.demo_service import foo
 ```
 
-### 7.2 在代码中引入项目变量
+### 6.2 在代码中引入项目变量
 
 在 `config_xxx.yml` 设置一个项目变量 （xxx 为你要配置的环境）
 
@@ -113,7 +97,7 @@ except KeyError:
     print('foo.bar 不存在')
 ```
 
-### 7.3 使用日志
+### 6.3 使用日志
 
 在代码中引入日志：
 
@@ -135,11 +119,11 @@ log.error('error log')
 
 debug 和 info level 的日志将输出到 stdout，warning 和 error level 的日志将输出到 stderr。
 
-### 7.4 示例
+### 6.4 示例
 
 使用了以上功能的示例在 `src/demo.py`。
 
-## 8. 运行
+## 7. 运行
 
 程序将按照顺序指定运行环境： 
 1. 环境变量：`PYTHON_SERVICE_ENV` ，如 `PYTHON_SERVICE_ENV=dev poetry run python3 main.py`
@@ -150,10 +134,10 @@ debug 和 info level 的日志将输出到 stdout，warning 和 error level 的�
 # 高级使用
 
 ## 安装依赖
-直接用 poetry 安装，会自动修改 `pyproject.toml` 文件
+直接用 uv 安装，会自动修改 `pyproject.toml` 文件
 
 ```bash
-poetry add <package-name>
+uv add <package-name>
 ```
 
 ## 修改日志打印到控制台的输出 Level
