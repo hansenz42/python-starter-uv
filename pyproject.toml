@@ -1,0 +1,8 @@
+[project]
+name = "python-starter-uv"
+version = "0.1.0"
+description = ""
+authors = [{ name = "Hansen", email = "xxxx@xxxx.com" }]
+requires-python = "~=3.12"
+readme = "README.md"
+dependencies = ["pyyaml", "pytest"]
