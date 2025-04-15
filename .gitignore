@@ -15,6 +15,10 @@ eggs/
 *.egg-info/
 .installed.cfg
 *.egg
+.venv/
+.pytest_cache/
+
+uv.lock
 
 # IDEs and editors
 .vscode/
