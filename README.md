@@ -4,6 +4,12 @@
 
 项目配置完毕后，你只需要在 src 目录下写代码即可。
 
+之前的 poetry 版本在：[hansenz42/python-project-starter: 一个在 poetry 基础上的 Python 项目脚手架，自带配置文件管理和日志管理功能](https://github.com/hansenz42/python-project-starter)。
+
+针对 poetry 版本，uv 版本更新了：
+- 使用 uv 代替 poetry 管理依赖，速度更快！
+- 舍弃了将 src 目录视为模块的方式，因为在 pytest 调用时会出现一些错误。为了更好的兼容性，还是使用 src 作为根目录引入代码
+
 # 功能
 
 - 依赖管理：使用 uv 管理项目依赖
@@ -67,9 +73,7 @@ uv sync
 
 引入自己编写的模块时，使用 `src` 作为根目录起始的路径，如：
 ```python
-# 例如，在 src/service 目录下写了一个 demo_service.py 文件，在其他文件中引入
-# 引入的文件路径不写 src，直接从 service 开始即可
-from server.demo_service import foo
+from src.server.demo_service import foo
 ```
 
 ### 6.2 在代码中引入项目变量
@@ -85,7 +89,7 @@ foo:
 
 ```python
 # 引入 ConfigManager
-from component.ConfigManager import config_manager
+from src.component.ConfigManager import config_manager
 
 # 获取 yaml 中配置的变量 foo.bar
 try:
@@ -126,8 +130,8 @@ debug 和 info level 的日志将输出到 stdout，warning 和 error level 的�
 ## 7. 运行
 
 程序将按照顺序指定运行环境： 
-1. 环境变量：`PYTHON_SERVICE_ENV` ，如 `PYTHON_SERVICE_ENV=dev poetry run python3 main.py`
-2. 命令行实参：如 `poetry run python3 main.py -e dev`
+1. 环境变量：`PYTHON_SERVICE_ENV` ，如 `PYTHON_SERVICE_ENV=dev uv run python3 main.py`
+2. 命令行实参：如 `uv run python3 main.py -e dev`
 
 如果程序没有接收到任何参数，或接受了 dev/test/prod 以外的参数，则默认使用 `dev` 环境。
 
@@ -152,7 +156,6 @@ log_level: INFO  # 支持 DEBUG, INFO, WARNING, ERROR, CRITICAL 不同等级
 如果运行环境无法满足你的需求，可以在 `src/common/env.py` 文件中的 `VALID_ENVS` 变量中加入你需要的环境名称。
 
 环境名称加入后，在 `res` 目录下新建一个环境配置文件 yaml
-
 
 ## 写测试
 
