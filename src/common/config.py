@@ -2,13 +2,13 @@ import yaml
 from src.common.path import ROOT_DIR
 from src.common.env import ENV
 from src.common.util import deep_merge_dict
-from typing import List, Dict
+from typing import Any
 
 CONFIG_FOLDER = ROOT_DIR / 'res'
 BASE_CONFIG_FILE = CONFIG_FOLDER / 'config.yml'
 
 
-def get_key_in_config(root: Dict, key_list: List[str], ind: int):
+def get_key_in_config(root: dict[str, Any], key_list: list[str], ind: int):
     """
     递归搜索，检查字典路径是否存在
     """
@@ -51,7 +51,7 @@ class ConfigManager:
 
         self.config_content = deep_merge_dict(self.config_content, patch_config)
 
-    def get_value(self, *args, **kwargs) -> any:
+    def get_value(self, *args, **kwargs) -> Any:
         """
         获取配置文件中的值
         """

@@ -1,11 +1,11 @@
 import logging
 import sys
-from src.component.ConfigManager import config_manager
+from src.common.config import config_manager
 
 
 class InfoFilter(logging.Filter):
-    def filter(self, rec):
-        return rec.levelno in (logging.DEBUG, logging.INFO)
+    def filter(self, record):
+        return record.levelno in (logging.DEBUG, logging.INFO)
 
 
 class LogManager:

@@ -12,10 +12,10 @@
 
 # 功能
 
-- 依赖管理：使用 uv 管理项目依赖
+- 依赖管理：uv
 - 日志管理：统一化日志格式，支持正常日志和错误日志的分割，分别输出到 stdout 和 stderr
-- 配置文件管理：根据不同环境加载不同配置文件。
-- 测试管理：使用 pytest 管理测试用例
+- 配置文件管理：区分多个配置文件，根据当前运行的环境加载
+- 测试管理：pytest
 
 # 使用方法
 
@@ -89,7 +89,7 @@ foo:
 
 ```python
 # 引入 ConfigManager
-from src.component.ConfigManager import config_manager
+from src.common.config import config_manager
 
 # 获取 yaml 中配置的变量 foo.bar
 try:
@@ -106,7 +106,7 @@ except KeyError:
 在代码中引入日志：
 
 ```python
-from component.LogManager import log_manager
+from src.common.log import log_manager
 
 # 定义一个 Tag
 TAG = 'main'
